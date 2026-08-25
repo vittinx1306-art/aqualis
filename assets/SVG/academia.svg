@@ -1,0 +1,11 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M50 26C42 20 26 18 16 22V72C26 68 42 70 50 76"/>
+    <path d="M50 26C58 20 74 18 84 22V72C74 68 58 70 50 76"/>
+    <path d="M50 26V76"/>
+    <path d="M24 36C30 34 38 34 42 38"/>
+    <path d="M24 48C30 46 38 46 42 50"/>
+    <path d="M76 36C70 34 62 34 58 38"/>
+    <path d="M76 48C70 46 62 46 58 50"/>
+  </g>
+</svg>
