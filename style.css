@@ -1,0 +1,441 @@
+/* =====================================================
+   AQUALIS — sistema de navegação orbital
+   Paleta: abismo oceânico + pérola + bioluminescência
+   ===================================================== */
+
+:root {
+    color-scheme: dark;
+
+    --abyss: #050e18;
+    --deep: #0a2c42;
+    --current: #175e78;
+    --glow: #6fd8cd;
+    --pearl: #ede3cf;
+    --pearl-dim: #b9ad95;
+    --gold: #c9a35a;
+
+    --font-display: "Cinzel", "Georgia", serif;
+    --font-body: "Montserrat", "Helvetica Neue", sans-serif;
+
+    --orbit-rx: min(33vw, 34vh);
+    --orbit-ry: min(30vw, 27vh);
+    --race-rx: min(35vw, 37vh);
+    --race-ry: min(33vw, 30vh);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background: var(--abyss);
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--pearl);
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--glow);
+    outline-offset: 4px;
+    border-radius: 999px;
+}
+
+
+/* =====================================================
+   PALCO
+   ===================================================== */
+
+.aqualis {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 30%, var(--deep) 0%, var(--abyss) 62%),
+        var(--abyss);
+}
+
+.entrance {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =====================================================
+   ATMOSFERA — luzes lentas de fundo
+   ===================================================== */
+
+.ambient {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.ambient-one {
+    width: 46vw;
+    height: 46vw;
+    top: 8%;
+    left: 12%;
+    background: radial-gradient(circle, var(--current), transparent 70%);
+    animation: drift-one 26s ease-in-out infinite;
+}
+
+.ambient-two {
+    width: 38vw;
+    height: 38vw;
+    bottom: 6%;
+    right: 10%;
+    background: radial-gradient(circle, var(--glow), transparent 70%);
+    opacity: 0.22;
+    animation: drift-two 32s ease-in-out infinite;
+}
+
+.ambient-three {
+    width: 30vw;
+    height: 30vw;
+    top: 50%;
+    left: 55%;
+    background: radial-gradient(circle, var(--gold), transparent 72%);
+    opacity: 0.14;
+    animation: drift-three 40s ease-in-out infinite;
+}
+
+@keyframes drift-one {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(6vw, 4vh); }
+}
+
+@keyframes drift-two {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-5vw, -6vh); }
+}
+
+@keyframes drift-three {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.15); }
+}
+
+
+/* =====================================================
+   CONCHA CENTRAL — sempre presente, é o coração da tela
+   ===================================================== */
+
+.shell-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+}
+
+.shell {
+    width: clamp(64px, 16vw, 104px);
+    height: auto;
+    color: var(--pearl);
+    filter: drop-shadow(0 0 10px rgba(111, 216, 205, 0.45))
+            drop-shadow(0 0 22px rgba(111, 216, 205, 0.2));
+    animation: breathe 6s ease-in-out infinite;
+    transition: width 0.6s ease, filter 0.6s ease;
+}
+
+.aqualis.state-main .shell,
+.aqualis.state-races .shell {
+    width: clamp(46px, 10vw, 70px);
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.shell-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 5vw, 2rem);
+    letter-spacing: 0.42em;
+    padding-left: 0.42em; /* compensa o letter-spacing no centro óptico */
+    color: var(--pearl);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.instruction {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 120px);
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--pearl-dim);
+    transition: opacity 0.5s ease;
+}
+
+.aqualis.state-main .shell-title,
+.aqualis.state-races .shell-title,
+.aqualis.state-main .instruction,
+.aqualis.state-races .instruction {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   ANÉIS DE ÓRBITA — trilhas visuais, decorativas
+   ===================================================== */
+
+.orbit-ring,
+.race-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 1px solid rgba(111, 216, 205, 0.16);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+
+.orbit-ring-one {
+    width: calc(var(--orbit-rx) * 2);
+    height: calc(var(--orbit-ry) * 2);
+    transform: translate(-50%, -50%);
+}
+
+.orbit-ring-two {
+    width: calc(var(--orbit-rx) * 2 + 26px);
+    height: calc(var(--orbit-ry) * 2 + 26px);
+    transform: translate(-50%, -50%);
+    border-style: dashed;
+    border-color: rgba(201, 163, 90, 0.14);
+}
+
+.race-ring {
+    width: calc(var(--race-rx) * 2);
+    height: calc(var(--race-ry) * 2);
+    transform: translate(-50%, -50%);
+    border-color: rgba(201, 163, 90, 0.18);
+}
+
+.orbit-system.is-open .orbit-ring,
+.race-orbit.is-open .race-ring {
+    opacity: 1;
+}
+
+
+/* =====================================================
+   ÓRBITAS — contêineres
+   a classe .is-open é controlada via JS, não pelo estado
+   do palco, para sincronizar o timing exato da transição
+   ===================================================== */
+
+.orbit-system,
+.race-orbit {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+}
+
+.orbit-system.is-open,
+.race-orbit.is-open {
+    visibility: visible;
+}
+
+
+/* =====================================================
+   PÉROLAS — portais individuais
+   posição real é escrita via JS em --x / --y (px, do centro)
+   ===================================================== */
+
+.portal,
+.race-portal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transform: translate(-50%, -50%) translate(var(--x, 0px), var(--y, 0px));
+    opacity: 0;
+    transition: opacity 0.75s ease;
+    padding: 6px;
+}
+
+.portal.is-visible,
+.race-portal.is-visible {
+    opacity: 1;
+}
+
+.portal-pearl,
+.race-pearl {
+    --icon: none;
+    width: clamp(30px, 7vw, 46px);
+    height: clamp(30px, 7vw, 46px);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 34% 30%, #ffffff 0%, var(--pearl) 38%, var(--pearl-dim) 100%);
+    box-shadow:
+        0 0 10px rgba(111, 216, 205, 0.35),
+        0 0 22px rgba(111, 216, 205, 0.15),
+        inset 0 0 8px rgba(255, 255, 255, 0.5);
+    position: relative;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.portal-pearl::after,
+.race-pearl::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    -webkit-mask-image: var(--icon);
+    mask-image: var(--icon);
+    -webkit-mask-size: 56%;
+    mask-size: 56%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    background: var(--deep);
+    opacity: 0.72;
+}
+
+.portal:hover .portal-pearl,
+.portal:focus-visible .portal-pearl,
+.race-portal:hover .race-pearl,
+.race-portal:focus-visible .race-pearl {
+    box-shadow:
+        0 0 14px rgba(201, 163, 90, 0.55),
+        0 0 30px rgba(201, 163, 90, 0.3),
+        inset 0 0 8px rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+}
+
+.portal-label,
+.race-label {
+    font-family: var(--font-display);
+    font-size: clamp(0.62rem, 1.8vw, 0.82rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pearl-dim);
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.portal:hover .portal-label,
+.portal:focus-visible .portal-label,
+.race-portal:hover .race-label,
+.race-portal:focus-visible .race-label {
+    color: var(--glow);
+}
+
+.portal-mundo .portal-pearl { --icon: url("assets/svg/mundo.svg"); }
+.portal-racas .portal-pearl { --icon: url("assets/svg/racas.svg"); }
+.portal-academia .portal-pearl { --icon: url("assets/svg/academia.svg"); }
+.portal-historia .portal-pearl { --icon: url("assets/svg/historia.svg"); }
+.portal-classes .portal-pearl { --icon: url("assets/svg/classes.svg"); }
+
+.race-sereias .race-pearl { --icon: url("assets/svg/sereias.svg"); }
+.race-vampiros .race-pearl { --icon: url("assets/svg/vampiros.svg"); }
+.race-lobisomens .race-pearl { --icon: url("assets/svg/lobisomens.svg"); }
+.race-bruxos .race-pearl { --icon: url("assets/svg/bruxos.svg"); }
+.race-onis .race-pearl { --icon: url("assets/svg/onis.svg"); }
+
+
+/* =====================================================
+   BOTÃO VOLTAR — conchinha ornamental no canto
+   ===================================================== */
+
+.back-button {
+    position: absolute;
+    left: clamp(14px, 4vw, 28px);
+    bottom: clamp(14px, 4vw, 28px);
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.aqualis.state-races .back-button {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.back-shell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(11, 44, 66, 0.6);
+    border: 1px solid rgba(111, 216, 205, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.back-shell img {
+    width: 20px;
+    height: 20px;
+    color: var(--glow);
+    filter: drop-shadow(0 0 4px rgba(111, 216, 205, 0.6));
+}
+
+.back-label {
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--pearl-dim);
+}
+
+
+/* =====================================================
+   RESPONSIVO / ACESSIBILIDADE
+   ===================================================== */
+
+@media (max-width: 480px) {
+    :root {
+        --orbit-rx: 40vw;
+        --orbit-ry: 26vh;
+        --race-rx: 42vw;
+        --race-ry: 29vh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .shell,
+    .ambient-one,
+    .ambient-two,
+    .ambient-three {
+        animation: none !important;
+    }
+}

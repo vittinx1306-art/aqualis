@@ -1,0 +1,346 @@
+/* =====================================================
+   AQUALIS — páginas de espécies
+   Reaproveita os tokens de style.css e adiciona a camada
+   de conteúdo longo (hero, seções, cards de subespécie).
+   A cor de destaque de cada raça vem de --race-accent,
+   definida por [data-race] no <body> de cada página.
+   ===================================================== */
+
+:root {
+    color-scheme: dark;
+
+    --abyss: #050e18;
+    --deep: #0a2c42;
+    --pearl: #ede3cf;
+    --pearl-dim: #b9ad95;
+    --ink: #cfe3df;
+
+    --font-display: "Cinzel", "Georgia", serif;
+    --font-body: "Montserrat", "Helvetica Neue", sans-serif;
+}
+
+/* afinidades elementais — páginas de raça */
+body[data-race="sereias"]    { --race-accent: #6fd8cd; --race-accent-soft: rgba(111, 216, 205, 0.14); }
+body[data-race="vampiros"]   { --race-accent: #e2704a; --race-accent-soft: rgba(226, 112, 74, 0.14); }
+body[data-race="lobisomens"] { --race-accent: #8fae5d; --race-accent-soft: rgba(143, 174, 93, 0.14); }
+body[data-race="onis"]       { --race-accent: #b98ee6; --race-accent-soft: rgba(185, 142, 230, 0.14); }
+body[data-race="bruxos"]     { --race-accent: #9a7fd4; --race-accent-soft: rgba(154, 127, 212, 0.14); }
+
+/* páginas de lore — usam o mesmo token, cor própria de cada tema */
+body[data-race="mundo"]      { --race-accent: #c9a35a; --race-accent-soft: rgba(201, 163, 90, 0.14); }
+body[data-race="academia"]   { --race-accent: #5b9bd1; --race-accent-soft: rgba(91, 155, 209, 0.14); }
+body[data-race="historia"]   { --race-accent: #c98a4f; --race-accent-soft: rgba(201, 138, 79, 0.14); }
+body[data-race="classes"]    { --race-accent: #c9556c; --race-accent-soft: rgba(201, 85, 108, 0.14); }
+
+/* páginas de lore (não são raças, mas reaproveitam o mesmo sistema visual) */
+body[data-race="mundo"]      { --race-accent: #c9a35a; --race-accent-soft: rgba(201, 163, 90, 0.14); }
+body[data-race="academia"]   { --race-accent: #5f9fc9; --race-accent-soft: rgba(95, 159, 201, 0.14); }
+body[data-race="historia"]   { --race-accent: #c98a4f; --race-accent-soft: rgba(201, 138, 79, 0.14); }
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse 60% 40% at 50% 0%, var(--race-accent-soft) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 20%, var(--deep) 0%, var(--abyss) 62%),
+        var(--abyss);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+}
+
+a { color: inherit; }
+
+/* =====================================================
+   TOPO — voltar + trilha
+   ===================================================== */
+
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px clamp(20px, 6vw, 64px);
+    background: linear-gradient(to bottom, var(--abyss) 60%, transparent);
+    backdrop-filter: blur(6px);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pearl-dim);
+    transition: color 0.3s ease;
+}
+
+.back-link:hover { color: var(--race-accent); }
+
+.back-link svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+}
+
+.crumb {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--pearl-dim);
+    opacity: 0.55;
+}
+
+
+/* =====================================================
+   HERO
+   ===================================================== */
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+    padding: 8vh clamp(20px, 6vw, 64px) 7vh;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.hero-icon {
+    width: clamp(56px, 12vw, 84px);
+    height: clamp(56px, 12vw, 84px);
+    color: var(--race-accent);
+    filter: drop-shadow(0 0 18px var(--race-accent-soft));
+}
+
+.hero-icon path {
+    vector-effect: non-scaling-stroke;
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.1rem, 7vw, 3.4rem);
+    letter-spacing: 0.06em;
+    margin: 0;
+    color: var(--pearl);
+}
+
+.affinity-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--race-accent);
+    padding: 6px 18px;
+    border: 1px solid var(--race-accent);
+    border-radius: 999px;
+}
+
+.hero-lede {
+    font-size: 1rem;
+    color: var(--ink);
+    max-width: 56ch;
+}
+
+
+/* =====================================================
+   CONTEÚDO
+   ===================================================== */
+
+.content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 6vw, 64px) 14vh;
+}
+
+section.block {
+    padding-top: 6vh;
+    border-top: 1px solid rgba(237, 227, 207, 0.08);
+}
+
+section.block:first-of-type {
+    border-top: none;
+}
+
+.eyebrow {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--race-accent);
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.3rem, 4vw, 1.7rem);
+    color: var(--pearl);
+    margin: 0 0 18px;
+    letter-spacing: 0.02em;
+}
+
+p { margin: 0 0 16px; color: var(--ink); }
+p:last-child { margin-bottom: 0; }
+
+.trait-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+}
+
+.trait-list li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--ink);
+}
+
+.trait-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--race-accent);
+}
+
+/* caixa de poder — destaque visual pro "PODER: X" do guia */
+.power-box {
+    margin-top: 16px;
+    padding: 24px clamp(18px, 4vw, 30px);
+    border: 1px solid var(--race-accent-soft);
+    border-radius: 14px;
+    background: linear-gradient(160deg, var(--race-accent-soft), transparent 70%);
+}
+
+.power-box .power-name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    color: var(--race-accent);
+    margin-bottom: 10px;
+}
+
+.power-box p:last-child { margin-bottom: 0; }
+
+/* cards de subespécie (usado só na página de Sereias) */
+.subspecies {
+    display: grid;
+    gap: 22px;
+}
+
+.subspecies-card {
+    padding: 22px clamp(18px, 4vw, 28px);
+    border: 1px solid rgba(237, 227, 207, 0.1);
+    border-radius: 14px;
+    background: rgba(10, 44, 66, 0.25);
+}
+
+.subspecies-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    color: var(--pearl);
+    margin: 0 0 6px;
+}
+
+.subspecies-card .sub-affinity {
+    display: block;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--race-accent);
+    margin-bottom: 12px;
+}
+
+.subspecies-card .sub-powers {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(237, 227, 207, 0.14);
+    font-size: 0.86rem;
+    color: var(--pearl-dim);
+}
+
+.sub-powers strong {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.note {
+    margin-top: 18px;
+    padding-left: 16px;
+    border-left: 2px solid var(--race-accent-soft);
+    font-style: italic;
+    color: var(--pearl-dim);
+    font-size: 0.92rem;
+}
+
+/* categorias de magia — usado só na página de Bruxos */
+.magic-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.magic-card {
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(237, 227, 207, 0.1);
+    background: rgba(10, 44, 66, 0.25);
+}
+
+.magic-card h3 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: var(--race-accent);
+    margin: 0 0 8px;
+}
+
+.magic-card p { font-size: 0.88rem; margin: 0; color: var(--pearl-dim); }
+
+/* tabela de afinidades — usado só na página de Bruxos, seção de princípio dos elementos */
+.affinity-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.affinity-table th,
+.affinity-table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(237, 227, 207, 0.08);
+}
+
+.affinity-table th {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--pearl-dim);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}

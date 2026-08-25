@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta name="color-scheme" content="dark">
+
+    <title>Aqualis — Arquivo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Montserrat:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+<main
+    class="aqualis"
+    id="aqualis"
+>
+
+    <!-- =====================================================
+         ATMOSFERA
+         ===================================================== -->
+
+    <div
+        class="ambient ambient-one"
+        aria-hidden="true"
+    ></div>
+
+    <div
+        class="ambient ambient-two"
+        aria-hidden="true"
+    ></div>
+
+    <div
+        class="ambient ambient-three"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =====================================================
+         CONCHA CENTRAL
+         ===================================================== -->
+
+    <section class="entrance">
+
+        <button
+            class="shell-button"
+            id="shellButton"
+            type="button"
+            aria-label="Abrir Aqualis"
+        >
+
+            <img
+                class="shell"
+                src="assets/svg/concha.svg"
+                alt=""
+            >
+
+            <span class="shell-title">
+                AQUALIS
+            </span>
+
+        </button>
+
+
+        <!-- =================================================
+             ÓRBITA PRINCIPAL
+             ================================================= -->
+
+        <div
+            class="orbit-system"
+            id="mainOrbit"
+        >
+
+            <div
+                class="orbit-ring orbit-ring-one"
+                aria-hidden="true"
+            ></div>
+
+            <div
+                class="orbit-ring orbit-ring-two"
+                aria-hidden="true"
+            ></div>
+
+
+            <!-- MUNDO -->
+
+            <button
+                class="portal portal-mundo"
+                type="button"
+                data-section="Mundo"
+                aria-label="Mundo"
+            >
+
+                <span class="portal-pearl"></span>
+
+                <span class="portal-label">
+                    Mundo
+                </span>
+
+            </button>
+
+
+            <!-- RAÇAS -->
+
+            <button
+                class="portal portal-racas"
+                type="button"
+                data-section="Raças"
+                aria-label="Raças"
+            >
+
+                <span class="portal-pearl"></span>
+
+                <span class="portal-label">
+                    Raças
+                </span>
+
+            </button>
+
+
+            <!-- ACADEMIA -->
+
+            <button
+                class="portal portal-academia"
+                type="button"
+                data-section="Academia"
+                aria-label="Academia"
+            >
+
+                <span class="portal-pearl"></span>
+
+                <span class="portal-label">
+                    Academia
+                </span>
+
+            </button>
+
+
+            <!-- HISTÓRIA -->
+
+            <button
+                class="portal portal-historia"
+                type="button"
+                data-section="História"
+                aria-label="História"
+            >
+
+                <span class="portal-pearl"></span>
+
+                <span class="portal-label">
+                    História
+                </span>
+
+            </button>
+
+
+            <!-- CLASSES -->
+
+            <button
+                class="portal portal-classes"
+                type="button"
+                data-section="Classes"
+                aria-label="Classes"
+            >
+
+                <span class="portal-pearl"></span>
+
+                <span class="portal-label">
+                    Classes
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             ÓRBITA DAS RAÇAS
+             ================================================= -->
+
+        <div
+            class="race-orbit"
+            id="raceOrbit"
+            aria-hidden="true"
+        >
+
+            <div
+                class="race-ring"
+                aria-hidden="true"
+            ></div>
+
+
+            <!-- SEREIAS -->
+
+            <button
+                class="race-portal race-sereias"
+                type="button"
+                data-race="Sereias"
+                aria-label="Sereias"
+            >
+
+                <span class="race-pearl"></span>
+
+                <span class="race-label">
+                    Sereias
+                </span>
+
+            </button>
+
+
+            <!-- VAMPIROS -->
+
+            <button
+                class="race-portal race-vampiros"
+                type="button"
+                data-race="Vampiros"
+                aria-label="Vampiros"
+            >
+
+                <span class="race-pearl"></span>
+
+                <span class="race-label">
+                    Vampiros
+                </span>
+
+            </button>
+
+
+            <!-- LOBISOMENS -->
+
+            <button
+                class="race-portal race-lobisomens"
+                type="button"
+                data-race="Lobisomens"
+                aria-label="Lobisomens"
+            >
+
+                <span class="race-pearl"></span>
+
+                <span class="race-label">
+                    Lobisomens
+                </span>
+
+            </button>
+
+
+            <!-- BRUXOS -->
+
+            <button
+                class="race-portal race-bruxos"
+                type="button"
+                data-race="Bruxos"
+                aria-label="Bruxos"
+            >
+
+                <span class="race-pearl"></span>
+
+                <span class="race-label">
+                    Bruxos
+                </span>
+
+            </button>
+
+
+            <!-- ONIS -->
+
+            <button
+                class="race-portal race-onis"
+                type="button"
+                data-race="Onis"
+                aria-label="Onis"
+            >
+
+                <span class="race-pearl"></span>
+
+                <span class="race-label">
+                    Onis
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             BOTÃO VOLTAR
+             ================================================= -->
+
+        <button
+            class="back-button"
+            id="backButton"
+            type="button"
+            aria-label="Voltar"
+        >
+
+            <span class="back-shell">
+
+                <img
+                    src="assets/svg/concha.svg"
+                    alt=""
+                >
+
+            </span>
+
+            <span class="back-label">
+                Voltar
+            </span>
+
+        </button>
+
+
+        <!-- =================================================
+             INSTRUÇÃO
+             ================================================= -->
+
+        <p
+            class="instruction"
+            id="instruction"
+        >
+            toque na concha
+        </p>
+
+
+    </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
